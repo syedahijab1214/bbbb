@@ -1,53 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <tittle> </tittle>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --text: #333;
-            --background: #f9f9f9;
-        }
-        * {
+<head>
+    <meta charset="UTF-8">
+    <title>Combined State App</title>
+    
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            background-color: #f4f4f9;
         }
-         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background-color: var(--background);
-            overflow-x: hidden;
-        }
-        a {
-            text-decoration: none;
-            color: var(--secondary);
-            transition: color 0.3s ease;
-        }
-        </style>
-    </head>
-    <body>
-        <nav>
-            <div class="container">
-                <div class="logo">SHZ</div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                     <li><a href="#About">About</a></li>
-                    <li><a href="#Skill">Skill</a></li>
-                     <li><a href="#Education">Education</a></li>
-                    <li><a href="#Reference">Reference</a></li>
-                    <li><a href="#Reference">Reference 2</a></li>
-                    </ul>
-                    </div>
-                    </nav>
-                    
 
-                    
+        #app {
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
 
+        h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0 20px 0;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        </div>
+
+    <script>
+        // 1. Initial State Definition
+        let state = {
+            count: 0,
+            title: "Vanilla JS Counter"
+        };
+
+        // 2. DOM Elements Cache
+        const appContainer = document.getElementById('app');
+
+        /**
+         * 3. The Render Function
+         * Renders the UI based on the current state and re-attaches events.
+         */
+        function render() {
+            // A. Generate the new HTML structure based on the current 'state'
+            const htmlContent = `
+                <h1>${state.title}</h1>
+                <p>${state.count}</p>
+                <button id="incrementBtn">
+                    Click to Increment
+                </button>
+            `;
+
+            // B. Update the DOM
+            appContainer.innerHTML = htmlContent;
+
+            // C. IMPORTANT: After using innerHTML, re-attach event listeners
+            // to the newly created button element.
+            const btn = document.getElementById('incrementBtn');
+            if (btn) {
+                btn.addEventListener('click', increment);
+            }
+        }
+
+        /**
+         * 4. State Modification Function (The "Action")
+         * Updates the state and triggers a re-render.
+         */
+        function increment() {
+            // 1. Update the state
+            state.count += 1;
+
+            // 2. Re-render the UI to reflect the new state
+            render();
+        }
+
+        // 5. Initial Call
+        // Call render() once to display the initial state when the page loads
+        document.addEventListener('DOMContentLoaded', render);
+    </script>
+</body>
+</html>
